@@ -1,0 +1,46 @@
+html,
+body {
+  background-color: #ffbfc5;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Nunito', sans-serif;
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.divContainer {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14.3em;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.labelInput {
+  font-size: 14.5px;
+  opacity: 0.45;
+}
+
+.formContainer {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.textLabelCreator {
+  margin-top: 10px;
+}
