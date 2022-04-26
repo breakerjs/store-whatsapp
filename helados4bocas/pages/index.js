@@ -4,22 +4,15 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
-import dynamic from 'next/dynamic'
+import Header from '../components/Header'
 
-export default function Home() {
+export default function Home({ sabores }) {
   return (
     <>
-    <Head>
-      <title>Helados 4 Bocas - Delivery Page</title>
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin></link>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap" rel="stylesheet"></link>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"></link>
-    </Head>
+    <Header/>
     {/* Solucionar error de numero y redireccion */}
     <div className="divContainer">
-      <form className="formContainer bg-light" action={process.env.NUMBER}>
+      <form className="formContainer bg-light" action={`https://wa.me/5491141414141`}> {/* El numero es falso, puedes corregirlo con un env.local o modificarlo desde aqui! :D */}
         <div className="divInput ">
           <strong><label className="labelInput">Nombre</label></strong>
           <input className="form-control name" type="text" name="name"/>
@@ -32,11 +25,40 @@ export default function Home() {
           <strong><label className="labelInput">Dirección</label></strong>
           <input className="form-control adress" type="text" name='%0Aadress'/>
         </div>
+        <div className="divInput">
+          <strong><label className="labelInput">Tamaño del empaque</label></strong>
+          <select name="select" className='form-control'>
+            <option value="value1">1 kilo</option>
+            <option value="value2" selected>1/4</option>
+          </select>
+        </div>
+        <div className="divInput">
+          <strong><label className="labelInput">Sabor del Helado</label></strong>
+          <select name="select" className='form-control'>
+            {
+              sabores.map((sabor) => {
+                return (
+                  <option key={sabor.id}>{sabor.nombre}</option>
+                )
+              })
+            }
+          </select>
+        </div>
         <button className="form-control btn btn-primary">Ingresar datos</button>
       </form>
-      <p className="labelInput textLabelCreator">Creado por Franco Piccirilli</p>
+      <p className="labelInput textLabelCreator">~ Creado por Franco Piccirilli 🌌 </p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossOrigin="anonymous"></Script>
     </>
   )
+}
+
+export async function getStaticProps () {
+  const res = await fetch('http://localhost:3000/heladoSabores.json')
+  const json = await res.json()
+  return {
+    props: {
+      sabores: json,
+    }
+  }
 }
